@@ -195,10 +195,7 @@ $mpdf = new \Mpdf\Mpdf([
     'mode' => 'c',
 ]);
 
-use Psr\Log\AbstractLogger;
-use Psr\Log\LoggerInterface;
-
-class CustomLogger extends AbstractLogger implements LoggerInterface
+class CustomLogger extends \Psr\Log\AbstractLogger implements \Psr\Log\LoggerInterface
 {
     public function log($level, $message, array $context = []): void
     {
