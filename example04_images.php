@@ -185,23 +185,34 @@ Image padding is supported as well as border and margin.
 <img src="assets/tiger.svg" rotate="-90" width="85" />
 <br />';
 
+
+//==============================================================
+//==============================================================
+//==============================================================
 require_once __DIR__ . '/bootstrap.php';
 
 $mpdf = new \Mpdf\Mpdf([
-	'mode' => 'c',
+    'mode' => 'c',
 ]);
 
-class CustomLogger extends \Psr\Log\AbstractLogger {
-    public function log($level, $message, array $context = [])
+use Psr\Log\AbstractLogger;
+use Psr\Log\LoggerInterface;
+
+class CustomLogger extends AbstractLogger implements LoggerInterface
+{
+    public function log($level, $message, array $context = []): void
     {
-        // echo $level . ': ' . $message . "\n";
+        echo $level . ': ' . $message . "\n";
     }
 }
 
-$mpdf->setLogger(new CustomLogger());
-
-// $mpdf->showImageErrors = true;
+$mpdf->showImageErrors = true;
 
 $mpdf->WriteHTML($html);
 
 $mpdf->Output();
+exit;
+
+//==============================================================
+//==============================================================
+//==============================================================
